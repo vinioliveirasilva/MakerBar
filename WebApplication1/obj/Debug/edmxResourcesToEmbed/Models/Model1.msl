@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="EngSoftModelStoreContainer" CdmEntityContainer="EngSoftEntities1">
+  <EntityContainerMapping StorageEntityContainer="makerbarModelStoreContainer" CdmEntityContainer="makerbarEntities">
     <EntitySetMapping Name="Cliente">
-      <EntityTypeMapping TypeName="EngSoftModel.Cliente">
+      <EntityTypeMapping TypeName="makerbarModel.Cliente">
         <MappingFragment StoreEntitySet="Cliente">
           <ScalarProperty Name="Cpf" ColumnName="Cpf" />
           <ScalarProperty Name="Endereco" ColumnName="Endereco" />
@@ -14,7 +14,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Estoque">
-      <EntityTypeMapping TypeName="EngSoftModel.Estoque">
+      <EntityTypeMapping TypeName="makerbarModel.Estoque">
         <MappingFragment StoreEntitySet="Estoque">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdFabricacao" ColumnName="IdFabricacao" />
@@ -23,7 +23,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Fabricacao">
-      <EntityTypeMapping TypeName="EngSoftModel.Fabricacao">
+      <EntityTypeMapping TypeName="makerbarModel.Fabricacao">
         <MappingFragment StoreEntitySet="Fabricacao">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdMaquina" ColumnName="IdMaquina" />
@@ -33,7 +33,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Item">
-      <EntityTypeMapping TypeName="EngSoftModel.Item">
+      <EntityTypeMapping TypeName="makerbarModel.Item">
         <MappingFragment StoreEntitySet="Item">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -46,7 +46,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ItensFabricacao">
-      <EntityTypeMapping TypeName="EngSoftModel.ItensFabricacao">
+      <EntityTypeMapping TypeName="makerbarModel.ItensFabricacao">
         <MappingFragment StoreEntitySet="ItensFabricacao">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdItem" ColumnName="IdItem" />
@@ -55,7 +55,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Login">
-      <EntityTypeMapping TypeName="EngSoftModel.Login">
+      <EntityTypeMapping TypeName="makerbarModel.Login">
         <MappingFragment StoreEntitySet="Login">
           <ScalarProperty Name="Cpf" ColumnName="Cpf" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -67,7 +67,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Maquina">
-      <EntityTypeMapping TypeName="EngSoftModel.Maquina">
+      <EntityTypeMapping TypeName="makerbarModel.Maquina">
         <MappingFragment StoreEntitySet="Maquina">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -75,7 +75,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Pedido">
-      <EntityTypeMapping TypeName="EngSoftModel.Pedido">
+      <EntityTypeMapping TypeName="makerbarModel.Pedido">
         <MappingFragment StoreEntitySet="Pedido">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Identificador" ColumnName="Identificador" />
@@ -84,7 +84,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Suprimento">
-      <EntityTypeMapping TypeName="EngSoftModel.Suprimento">
+      <EntityTypeMapping TypeName="makerbarModel.Suprimento">
         <MappingFragment StoreEntitySet="Suprimento">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />

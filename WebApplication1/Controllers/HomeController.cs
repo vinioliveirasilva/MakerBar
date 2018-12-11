@@ -31,7 +31,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (EngSoftEntities1 db = new EngSoftEntities1())
+                using (makerbarEntities db = new makerbarEntities())
                 {
                     var vLogin = db.Login.Where(p => p.Email.Equals(login.Email)).FirstOrDefault();
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a514d8959f9d4c19be92fda9cc160b27" Name="Diagram1">
+        <EntityTypeShape EntityType="makerbarModel.Cliente" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Estoque" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Fabricacao" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Item" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.ItensFabricacao" Width="1.5" PointX="10.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Login" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Maquina" Width="1.5" PointX="6" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Pedido" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="makerbarModel.Suprimento" Width="1.5" PointX="6" PointY="14.625" IsExpanded="true" />
+        <AssociationConnector Association="makerbarModel.FK__Pedido__IdClient__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__Estoque__IdFabri__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__Estoque__IdPedid__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__Fabricaca__IdMaq__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__Fabricaca__IdPed__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__Fabricaca__IdSup__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__ItensFabr__IdFab__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__Item__IdPedido__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="makerbarModel.FK__ItensFabr__IdIte__4BAC3F29" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

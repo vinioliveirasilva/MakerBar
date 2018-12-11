@@ -38,7 +38,7 @@ namespace WebApplication1.Helpers
 
         public override string[] GetRolesForUser(string username)
         {
-            EngSoftEntities1 db = new EngSoftEntities1();
+            makerbarEntities db = new makerbarEntities();
 
             string sRoles = db.Login.Where(p => p.Email == username).FirstOrDefault().Tipo;
             string[] retorno = { sRoles };

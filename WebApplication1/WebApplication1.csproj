@@ -287,7 +287,7 @@
     <Content Include="Views\Clientes\Delete.cshtml" />
     <Content Include="Views\Clientes\Details.cshtml" />
     <Content Include="Views\Clientes\Edit.cshtml" />
-    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Clientes\_Index.cshtml" />
     <Content Include="Views\Suprimentos\Create.cshtml" />
     <Content Include="Views\Suprimentos\Delete.cshtml" />
     <Content Include="Views\Suprimentos\Details.cshtml" />

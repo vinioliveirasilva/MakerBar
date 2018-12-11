@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
     [Authorize(Roles = "Admin, Usuario")]   
     public class MaquinasController : Controller
     {
-        private EngSoftEntities1 db = new EngSoftEntities1();
+        private makerbarEntities db = new makerbarEntities();
 
         // GET: Maquinas
         public async Task<ActionResult> Index()

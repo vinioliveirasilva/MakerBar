@@ -1,0 +1,148 @@
+﻿@model IEnumerable<WebApplication1.Models.Cliente>
+
+<div id="clientes-index">
+    <p onclick="exibeFormNovo()" style="text-decoration:underline; cursor:pointer; color:cornflowerblue">
+        Create New
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelCel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelRes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelCel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelRes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Cpf }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Cpf }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Cpf })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<div id="cliente-form-content">
+    <h2>Create</h2>
+
+        <div class="form-horizontal">
+            <h4>Cliente</h4>
+            <hr />
+            
+            <div class="form-group">
+                <label for="cpf-input" class="control-label col-md-2">CPF</label>
+                <div class="col-md-10">
+                    <input id="cpf-input" type="text" name=Cpf class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="endereco-input" class="control-label col-md-2">Endereço</label>
+                <div class="col-md-10">
+                    <input type="text" id="endereco-input" class="form-control" name="Endereco" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nome-input" class="control-label col-md-2">Nome</label>
+                <div class="col-md-10">
+                    <input type="text" id="nome-input" class="form-control" name="Nome" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telcel-input" class="control-label col-md-2">Telefone Ceular</label>
+                <div class="col-md-10">
+                    <input type="text" id="telcel-input" class="form-control" name="TelCel" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telres-input" class="control-label col-md-2">Telefone Residencial</label>
+                <div class="col-md-10">
+                    <input type="text" id="telres-input" class="form-control" name="TelRes" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email-input" class="control-label col-md-2">E-mail</label>
+                <div class="col-md-10">
+                    <input type="text" id="email-input" class="form-control" name="Email" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-default" onclick="createCliente()">Criar</button>
+                </div>
+            </div>
+        </div>
+    <div>
+        <p onclick="exibeIndex()" style="text-decoration:underline; cursor:pointer; color:cornflowerblue">
+            Back to List
+        </p>
+    </div>
+</div>
+
+<script>
+
+    $('#cliente-form-content').hide();
+
+    function exibeFormNovo() {
+        $('#clientes-index').hide();
+        $('#cliente-form-content').show();
+    }
+
+    function exibeIndex() {
+        $('#cliente-form-content').hide();
+        $('#clientes-index').show();
+    }
+
+    
+    function createCliente() {
+
+        let cliente = {
+            Cpf: document.getElementById("cpf-input").value,
+            Endereco: document.getElementById("endereco-input").value,
+            Nome: document.getElementById("nome-input").value,
+            TelCel: document.getElementById("telcel-input").value,
+            TelRes: document.getElementById("telres-input").value,
+            Email: document.getElementById("email-input").value
+        };
+
+        $.post('/Clientes/Create',
+            {
+                cliente: cliente
+            }, (retorno) => {
+                alert(retorno);
+                $('#clientes-content').load('/Clientes/Index');
+            }
+        );       
+    }
+    
+
+</script>

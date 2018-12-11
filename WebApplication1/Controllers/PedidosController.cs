@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
 {
     public class PedidosController : Controller
     {
-        private EngSoftEntities1 db = new EngSoftEntities1();
+        private makerbarEntities db = new makerbarEntities();
 
         // GET: Pedidos
         public async Task<ActionResult> Index()

@@ -15,7 +15,11 @@
         <!-- Tab content -->
         <div id="Clientes" class="tabcontent">
             <h3>Gerencia de clientes</h3>
-            @{Html.RenderAction("CreateCliente", "Home");}
+
+            <div id="clientes-content">
+               
+            </div>
+            <!--Html.RenderAction("Index", "Clientes");} -->
         </div>
 
         <div id="Pedidos" class="tabcontent">
@@ -49,3 +53,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#clientes-content').load('/Clientes/Index');
+</script>

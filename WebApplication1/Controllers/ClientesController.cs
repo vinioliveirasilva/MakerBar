@@ -13,12 +13,12 @@ namespace WebApplication1.Controllers
 {
     public class ClientesController : Controller
     {
-        private EngSoftEntities1 db = new EngSoftEntities1();
+        private makerbarEntities db = new makerbarEntities();
 
         // GET: Clientes
         public async Task<ActionResult> Index()
         {
-            return View(await db.Cliente.ToListAsync());
+            return PartialView("_Index", await db.Cliente.ToListAsync());
         }
 
         // GET: Clientes/Details/5
@@ -37,14 +37,33 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Clientes/Create
-        public ActionResult Create()
+        [HttpPost]
+        public async Task<bool> Create(Cliente cliente)
         {
-            return View();
+
+            try
+            {
+                
+                if (ModelState.IsValid)
+                {
+                    db.Cliente.Add(cliente);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                int i = 0;
+            }
+
+            return false;
+            
         }
 
         // POST: Clientes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Cpf,Endereco,Nome,TelCel,TelRes,Email")] Cliente cliente)
@@ -58,6 +77,7 @@ namespace WebApplication1.Controllers
 
             return View(cliente);
         }
+        */
 
         // GET: Clientes/Edit/5
         public async Task<ActionResult> Edit(string id)
