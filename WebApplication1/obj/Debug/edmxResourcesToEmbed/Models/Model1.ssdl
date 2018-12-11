@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EngSoftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Cpf" />
+    </Key>
+    <Property Name="Cpf" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Endereco" Type="varchar" MaxLength="100" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="TelCel" Type="varchar" MaxLength="13" />
+    <Property Name="TelRes" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Estoque">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdFabricacao" Type="int" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fabricacao">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdMaquina" Type="int" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
+    <Property Name="IdSuprimento" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" />
+    <Property Name="Qualidade" Type="int" Nullable="false" />
+    <Property Name="Resistencia" Type="int" Nullable="false" />
+    <Property Name="Arquivo" Type="varchar" MaxLength="200" />
+    <Property Name="Quantidade" Type="int" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItensFabricacao">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdItem" Type="int" Nullable="false" />
+    <Property Name="IdFabricacao" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Cpf" />
+    </Key>
+    <Property Name="Cpf" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Senha" Type="varchar" MaxLength="256" />
+    <Property Name="Ativo" Type="int" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Maquina">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Identificador" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="IdCliente" Type="varchar" MaxLength="11" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suprimento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" />
+    <Property Name="PesoInicial" Type="int" />
+    <Property Name="PesoAtual" Type="int" />
+    <Property Name="Tipo" Type="varchar" MaxLength="20" />
+    <Property Name="Cor" Type="varchar" MaxLength="30" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <Association Name="FK__Estoque__IdFabri__75A278F5">
+    <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="1" />
+    <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricacao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Estoque">
+        <PropertyRef Name="IdFabricacao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Estoque__IdPedid__76969D2E">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Estoque">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Fabricaca__IdMaq__70DDC3D8">
+    <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
+    <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Maquina">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fabricacao">
+        <PropertyRef Name="IdMaquina" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Fabricaca__IdPed__71D1E811">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fabricacao">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Fabricaca__IdSup__72C60C4A">
+    <End Role="Suprimento" Type="Self.Suprimento" Multiplicity="1" />
+    <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suprimento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fabricacao">
+        <PropertyRef Name="IdSuprimento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Item__IdPedido__6E01572D">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItensFabr__IdFab__7A672E12">
+    <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="1" />
+    <End Role="ItensFabricacao" Type="Self.ItensFabricacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricacao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItensFabricacao">
+        <PropertyRef Name="IdFabricacao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItensFabr__IdIte__797309D9">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="ItensFabricacao" Type="Self.ItensFabricacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItensFabricacao">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pedido__IdClient__6B24EA82">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Cpf" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EngSoftModelStoreContainer">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estoque" EntityType="Self.Estoque" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fabricacao" EntityType="Self.Fabricacao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItensFabricacao" EntityType="Self.ItensFabricacao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Maquina" EntityType="Self.Maquina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suprimento" EntityType="Self.Suprimento" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Estoque__IdFabri__75A278F5" Association="Self.FK__Estoque__IdFabri__75A278F5">
+      <End Role="Fabricacao" EntitySet="Fabricacao" />
+      <End Role="Estoque" EntitySet="Estoque" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Estoque__IdPedid__76969D2E" Association="Self.FK__Estoque__IdPedid__76969D2E">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Estoque" EntitySet="Estoque" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Fabricaca__IdMaq__70DDC3D8" Association="Self.FK__Fabricaca__IdMaq__70DDC3D8">
+      <End Role="Maquina" EntitySet="Maquina" />
+      <End Role="Fabricacao" EntitySet="Fabricacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Fabricaca__IdPed__71D1E811" Association="Self.FK__Fabricaca__IdPed__71D1E811">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Fabricacao" EntitySet="Fabricacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Fabricaca__IdSup__72C60C4A" Association="Self.FK__Fabricaca__IdSup__72C60C4A">
+      <End Role="Suprimento" EntitySet="Suprimento" />
+      <End Role="Fabricacao" EntitySet="Fabricacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Item__IdPedido__6E01572D" Association="Self.FK__Item__IdPedido__6E01572D">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItensFabr__IdFab__7A672E12" Association="Self.FK__ItensFabr__IdFab__7A672E12">
+      <End Role="Fabricacao" EntitySet="Fabricacao" />
+      <End Role="ItensFabricacao" EntitySet="ItensFabricacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItensFabr__IdIte__797309D9" Association="Self.FK__ItensFabr__IdIte__797309D9">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="ItensFabricacao" EntitySet="ItensFabricacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pedido__IdClient__6B24EA82" Association="Self.FK__Pedido__IdClient__6B24EA82">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
