@@ -6,11 +6,12 @@ using WebApi.Helper;
 
 namespace WebApi.Models
 {
-    public class Servico
+    public class Login
     {
         [AttributeType(PrimaryKey = true)]
-        [AutoIncrement(Auto = true)]
-        public int Id { get; set; }
+        public string Cpf { get; set; }
         public string Nome { get; set; }
+        public string Senha { get; set; }
+        public int Tipo { get; set; } 
     }
 }

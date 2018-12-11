@@ -1,32 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Mvc;
 using WebApi.Connection;
 using WebApi.Models;
 
 namespace WebApi.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class FuncionarioController : ApiController
+    public class FuncionarioController : Controller
     {
-        // GET api/<controller>
-        public IEnumerable<Funcionario> Get()
+        public ActionResult Teste()
         {
-            var toReturn = new Funcionario().Get(DbConnection.GetInstance());
+            //var toReturn = new Funcionario().Get(DbConnection.GetInstance());
+
+            return View();
+        }
+
+        public ActionResult GetFuncionarios()
+        {
+            return PartialView();
+        }
+
+        public IEnumerable<Item> Get(long id)
+        {
+            var toReturn = new Item().Get(DbConnection.GetInstance(), id);
 
             return toReturn;
         }
 
-        // GET api/<controller>/5
-        public IEnumerable<Funcionario> Get(long id)
-        {
-            var toReturn = new Funcionario().Get(DbConnection.GetInstance(), id);
-
-            return toReturn;
-        }
-
-        // POST api/<controller>
-        public bool Post([FromBody]Funcionario value)
+        public bool Post([FromBody]Item value)
         {
             try
             {
@@ -41,8 +44,7 @@ namespace WebApi.Controllers
 
         }
 
-        // PUT api/<controller>/5
-        public bool Put(long id, [FromBody]Funcionario value)
+        public bool Put(long id, [FromBody]Item value)
         {
             try
             {
@@ -57,12 +59,11 @@ namespace WebApi.Controllers
 
         }
 
-        // DELETE api/<controller>/5
         public bool Delete(long id)
         {
             try
             {
-                var toDelete = new Funcionario().Delete(DbConnection.GetInstance(), id);
+                var toDelete = new Item().Delete(DbConnection.GetInstance(), id);
             }
             catch
             {

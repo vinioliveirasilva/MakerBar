@@ -6,13 +6,14 @@ using WebApi.Helper;
 
 namespace WebApi.Models
 {
-    public class Usuario
+    public class Suprimento
     {
         [AttributeType(PrimaryKey = true)]
-        public string Id { get; set; }
+        [AutoIncrement(Auto = true)]
+        public int Id { get; set; }
         public string Nome { get; set; }
-        public string Senha { get; set; }
-        public int Tipo { get; set; } 
-        public int Classe { get; set; }
+        public int PesoInicial { get; set; }
+        public int PesoFinal { get; set; }
+        public int Status { get; set; }
     }
 }

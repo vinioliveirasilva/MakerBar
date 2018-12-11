@@ -10,24 +10,10 @@ namespace WebApi.Models
     {
         [AttributeType(PrimaryKey = true)]
         public string Cnpj { get; set; }
-        public string EmpEnd { get; set; }
-        public string EmpNome { get; set; }
-        public string Contato { get; set; }
-        public string TelEmp { get; set; }
+        public string Endereco { get; set; }
+        public string Nome { get; set; }
+        public string TelRes { get; set; }
         public string TelCel { get; set; }
         public string Email { get; set; }
-
-        public Cliente() { }
-
-        public Cliente(string cnpj, string empEnd, string empNome, string contato, string telEmp, string telCel, string email)
-        {
-            Cnpj = cnpj;
-            EmpEnd = empEnd;
-            EmpNome = empNome;
-            Contato = contato;
-            TelEmp = telEmp;
-            TelCel = telCel;
-            Email = email;
-        }
     }
 }
