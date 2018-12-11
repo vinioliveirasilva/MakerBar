@@ -39,6 +39,7 @@ CREATE TABLE Pedido(
 	Id int IDENTITY(1,1)
 	,Identificador varchar(200) NOT NULL
 	,IdCliente varchar(11) NOT NULL
+	,Status int NOT NULL
 	,PRIMARY KEY(Id)
 	,FOREIGN KEY(IdCliente)	REFERENCES Cliente(Cpf)
 )
