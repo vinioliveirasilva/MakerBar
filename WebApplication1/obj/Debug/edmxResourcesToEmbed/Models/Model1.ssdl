@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="makerbarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="EngSoftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Cliente">
     <Key>
       <PropertyRef Name="Cpf" />
@@ -27,6 +27,7 @@
     <Property Name="IdMaquina" Type="int" Nullable="false" />
     <Property Name="IdPedido" Type="int" Nullable="false" />
     <Property Name="IdSuprimento" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Item">
     <Key>
@@ -73,6 +74,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Identificador" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="IdCliente" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Suprimento">
     <Key>
@@ -86,7 +88,7 @@
     <Property Name="Cor" Type="varchar" MaxLength="30" />
     <Property Name="Status" Type="int" />
   </EntityType>
-  <Association Name="FK__Estoque__IdFabri__47DBAE45">
+  <Association Name="FK__Estoque__IdFabri__1332DBDC">
     <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="1" />
     <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
     <ReferentialConstraint>
@@ -98,7 +100,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Estoque__IdPedid__48CFD27E">
+  <Association Name="FK__Estoque__IdPedid__14270015">
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
     <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
     <ReferentialConstraint>
@@ -110,7 +112,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Fabricaca__IdMaq__4316F928">
+  <Association Name="FK__Fabricaca__IdMaq__0E6E26BF">
     <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
     <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -122,7 +124,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Fabricaca__IdPed__440B1D61">
+  <Association Name="FK__Fabricaca__IdPed__0F624AF8">
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
     <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -134,7 +136,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Fabricaca__IdSup__44FF419A">
+  <Association Name="FK__Fabricaca__IdSup__10566F31">
     <End Role="Suprimento" Type="Self.Suprimento" Multiplicity="1" />
     <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -146,7 +148,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Item__IdPedido__403A8C7D">
+  <Association Name="FK__Item__IdPedido__0B91BA14">
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
     <End Role="Item" Type="Self.Item" Multiplicity="*" />
     <ReferentialConstraint>
@@ -158,7 +160,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ItensFabr__IdFab__4CA06362">
+  <Association Name="FK__ItensFabr__IdFab__17F790F9">
     <End Role="Fabricacao" Type="Self.Fabricacao" Multiplicity="1" />
     <End Role="ItensFabricacao" Type="Self.ItensFabricacao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -170,7 +172,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ItensFabr__IdIte__4BAC3F29">
+  <Association Name="FK__ItensFabr__IdIte__17036CC0">
     <End Role="Item" Type="Self.Item" Multiplicity="1" />
     <End Role="ItensFabricacao" Type="Self.ItensFabricacao" Multiplicity="*" />
     <ReferentialConstraint>
@@ -182,7 +184,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pedido__IdClient__3D5E1FD2">
+  <Association Name="FK__Pedido__IdClient__08B54D69">
     <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
     <ReferentialConstraint>
@@ -194,7 +196,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="makerbarModelStoreContainer">
+  <EntityContainer Name="EngSoftModelStoreContainer">
     <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estoque" EntityType="Self.Estoque" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Fabricacao" EntityType="Self.Fabricacao" Schema="dbo" store:Type="Tables" />
@@ -204,39 +206,39 @@
     <EntitySet Name="Maquina" EntityType="Self.Maquina" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suprimento" EntityType="Self.Suprimento" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Estoque__IdFabri__47DBAE45" Association="Self.FK__Estoque__IdFabri__47DBAE45">
+    <AssociationSet Name="FK__Estoque__IdFabri__1332DBDC" Association="Self.FK__Estoque__IdFabri__1332DBDC">
       <End Role="Fabricacao" EntitySet="Fabricacao" />
       <End Role="Estoque" EntitySet="Estoque" />
     </AssociationSet>
-    <AssociationSet Name="FK__Estoque__IdPedid__48CFD27E" Association="Self.FK__Estoque__IdPedid__48CFD27E">
+    <AssociationSet Name="FK__Estoque__IdPedid__14270015" Association="Self.FK__Estoque__IdPedid__14270015">
       <End Role="Pedido" EntitySet="Pedido" />
       <End Role="Estoque" EntitySet="Estoque" />
     </AssociationSet>
-    <AssociationSet Name="FK__Fabricaca__IdMaq__4316F928" Association="Self.FK__Fabricaca__IdMaq__4316F928">
+    <AssociationSet Name="FK__Fabricaca__IdMaq__0E6E26BF" Association="Self.FK__Fabricaca__IdMaq__0E6E26BF">
       <End Role="Maquina" EntitySet="Maquina" />
       <End Role="Fabricacao" EntitySet="Fabricacao" />
     </AssociationSet>
-    <AssociationSet Name="FK__Fabricaca__IdPed__440B1D61" Association="Self.FK__Fabricaca__IdPed__440B1D61">
+    <AssociationSet Name="FK__Fabricaca__IdPed__0F624AF8" Association="Self.FK__Fabricaca__IdPed__0F624AF8">
       <End Role="Pedido" EntitySet="Pedido" />
       <End Role="Fabricacao" EntitySet="Fabricacao" />
     </AssociationSet>
-    <AssociationSet Name="FK__Fabricaca__IdSup__44FF419A" Association="Self.FK__Fabricaca__IdSup__44FF419A">
+    <AssociationSet Name="FK__Fabricaca__IdSup__10566F31" Association="Self.FK__Fabricaca__IdSup__10566F31">
       <End Role="Suprimento" EntitySet="Suprimento" />
       <End Role="Fabricacao" EntitySet="Fabricacao" />
     </AssociationSet>
-    <AssociationSet Name="FK__Item__IdPedido__403A8C7D" Association="Self.FK__Item__IdPedido__403A8C7D">
+    <AssociationSet Name="FK__Item__IdPedido__0B91BA14" Association="Self.FK__Item__IdPedido__0B91BA14">
       <End Role="Pedido" EntitySet="Pedido" />
       <End Role="Item" EntitySet="Item" />
     </AssociationSet>
-    <AssociationSet Name="FK__ItensFabr__IdFab__4CA06362" Association="Self.FK__ItensFabr__IdFab__4CA06362">
+    <AssociationSet Name="FK__ItensFabr__IdFab__17F790F9" Association="Self.FK__ItensFabr__IdFab__17F790F9">
       <End Role="Fabricacao" EntitySet="Fabricacao" />
       <End Role="ItensFabricacao" EntitySet="ItensFabricacao" />
     </AssociationSet>
-    <AssociationSet Name="FK__ItensFabr__IdIte__4BAC3F29" Association="Self.FK__ItensFabr__IdIte__4BAC3F29">
+    <AssociationSet Name="FK__ItensFabr__IdIte__17036CC0" Association="Self.FK__ItensFabr__IdIte__17036CC0">
       <End Role="Item" EntitySet="Item" />
       <End Role="ItensFabricacao" EntitySet="ItensFabricacao" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pedido__IdClient__3D5E1FD2" Association="Self.FK__Pedido__IdClient__3D5E1FD2">
+    <AssociationSet Name="FK__Pedido__IdClient__08B54D69" Association="Self.FK__Pedido__IdClient__08B54D69">
       <End Role="Cliente" EntitySet="Cliente" />
       <End Role="Pedido" EntitySet="Pedido" />
     </AssociationSet>

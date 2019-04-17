@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="54bc99e7b33d4d5f84d0e518677a0464" Name="Diagram1">
-        <EntityTypeShape EntityType="EngSoftModel.Cliente" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Estoque" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Fabricacao" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Item" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.ItensFabricacao" Width="1.5" PointX="10.5" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Login" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Maquina" Width="1.5" PointX="6" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Pedido" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EngSoftModel.Suprimento" Width="1.5" PointX="6" PointY="14.625" IsExpanded="true" />
-        <AssociationConnector Association="EngSoftModel.FK__Pedido__IdClient__6B24EA82" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__Estoque__IdFabri__75A278F5" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__Estoque__IdPedid__76969D2E" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__Fabricaca__IdMaq__70DDC3D8" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__Fabricaca__IdPed__71D1E811" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__Fabricaca__IdSup__72C60C4A" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__ItensFabr__IdFab__7A672E12" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__Item__IdPedido__6E01572D" ManuallyRouted="false" />
-        <AssociationConnector Association="EngSoftModel.FK__ItensFabr__IdIte__797309D9" ManuallyRouted="false" />
+      <Diagram DiagramId="0b6b587805254c99b52170cceadbf749" Name="Diagram1">
+        <EntityTypeShape EntityType="EngSoftModel.Cliente" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Estoque" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Fabricacao" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Item" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.ItensFabricacao" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Login" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Maquina" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Pedido" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EngSoftModel.Suprimento" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="EngSoftModel.FK__Pedido__IdClient__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__Estoque__IdFabri__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__Estoque__IdPedid__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__Fabricaca__IdMaq__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__Fabricaca__IdPed__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__Fabricaca__IdSup__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__ItensFabr__IdFab__17F790F9" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__Item__IdPedido__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="EngSoftModel.FK__ItensFabr__IdIte__17036CC0" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

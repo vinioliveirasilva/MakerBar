@@ -25,8 +25,9 @@ namespace WebApplication1.Models
         public int Id { get; set; }
         public string Identificador { get; set; }
         public string IdCliente { get; set; }
+        public int Status { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
+        public Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Estoque> Estoque { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

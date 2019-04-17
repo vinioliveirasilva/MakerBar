@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="makerbarModelStoreContainer" CdmEntityContainer="makerbarEntities">
+  <EntityContainerMapping StorageEntityContainer="EngSoftModelStoreContainer" CdmEntityContainer="makerbarEntities">
     <EntitySetMapping Name="Cliente">
-      <EntityTypeMapping TypeName="makerbarModel.Cliente">
+      <EntityTypeMapping TypeName="EngSoftModel.Cliente">
         <MappingFragment StoreEntitySet="Cliente">
           <ScalarProperty Name="Cpf" ColumnName="Cpf" />
           <ScalarProperty Name="Endereco" ColumnName="Endereco" />
@@ -14,7 +14,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Estoque">
-      <EntityTypeMapping TypeName="makerbarModel.Estoque">
+      <EntityTypeMapping TypeName="EngSoftModel.Estoque">
         <MappingFragment StoreEntitySet="Estoque">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdFabricacao" ColumnName="IdFabricacao" />
@@ -23,17 +23,18 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Fabricacao">
-      <EntityTypeMapping TypeName="makerbarModel.Fabricacao">
+      <EntityTypeMapping TypeName="EngSoftModel.Fabricacao">
         <MappingFragment StoreEntitySet="Fabricacao">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdMaquina" ColumnName="IdMaquina" />
           <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
           <ScalarProperty Name="IdSuprimento" ColumnName="IdSuprimento" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Item">
-      <EntityTypeMapping TypeName="makerbarModel.Item">
+      <EntityTypeMapping TypeName="EngSoftModel.Item">
         <MappingFragment StoreEntitySet="Item">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -46,7 +47,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ItensFabricacao">
-      <EntityTypeMapping TypeName="makerbarModel.ItensFabricacao">
+      <EntityTypeMapping TypeName="EngSoftModel.ItensFabricacao">
         <MappingFragment StoreEntitySet="ItensFabricacao">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdItem" ColumnName="IdItem" />
@@ -55,7 +56,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Login">
-      <EntityTypeMapping TypeName="makerbarModel.Login">
+      <EntityTypeMapping TypeName="EngSoftModel.Login">
         <MappingFragment StoreEntitySet="Login">
           <ScalarProperty Name="Cpf" ColumnName="Cpf" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -67,7 +68,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Maquina">
-      <EntityTypeMapping TypeName="makerbarModel.Maquina">
+      <EntityTypeMapping TypeName="EngSoftModel.Maquina">
         <MappingFragment StoreEntitySet="Maquina">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -75,16 +76,17 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Pedido">
-      <EntityTypeMapping TypeName="makerbarModel.Pedido">
+      <EntityTypeMapping TypeName="EngSoftModel.Pedido">
         <MappingFragment StoreEntitySet="Pedido">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Identificador" ColumnName="Identificador" />
           <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Suprimento">
-      <EntityTypeMapping TypeName="makerbarModel.Suprimento">
+      <EntityTypeMapping TypeName="EngSoftModel.Suprimento">
         <MappingFragment StoreEntitySet="Suprimento">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />

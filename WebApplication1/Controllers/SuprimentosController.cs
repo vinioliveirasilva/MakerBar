@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -11,24 +10,25 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = "0,1")]
     public class SuprimentosController : Controller
     {
         private makerbarEntities db = new makerbarEntities();
 
         // GET: Suprimentos
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Suprimento.ToListAsync());
+            return View(db.Suprimento.ToList());
         }
 
         // GET: Suprimentos/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Suprimento suprimento = await db.Suprimento.FindAsync(id);
+            Suprimento suprimento = db.Suprimento.Find(id);
             if (suprimento == null)
             {
                 return HttpNotFound();
@@ -47,12 +47,12 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Nome,PesoInicial,PesoAtual,Status")] Suprimento suprimento)
+        public ActionResult Create([Bind(Include = "Id,Nome,PesoInicial,PesoAtual,Tipo,Cor,Status")] Suprimento suprimento)
         {
             if (ModelState.IsValid)
             {
                 db.Suprimento.Add(suprimento);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -60,13 +60,13 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Suprimentos/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Suprimento suprimento = await db.Suprimento.FindAsync(id);
+            Suprimento suprimento = db.Suprimento.Find(id);
             if (suprimento == null)
             {
                 return HttpNotFound();
@@ -79,25 +79,25 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Nome,PesoInicial,PesoAtual,Status")] Suprimento suprimento)
+        public ActionResult Edit([Bind(Include = "Id,Nome,PesoInicial,PesoAtual,Tipo,Cor,Status")] Suprimento suprimento)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(suprimento).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(suprimento);
         }
 
         // GET: Suprimentos/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Suprimento suprimento = await db.Suprimento.FindAsync(id);
+            Suprimento suprimento = db.Suprimento.Find(id);
             if (suprimento == null)
             {
                 return HttpNotFound();
@@ -108,11 +108,11 @@ namespace WebApplication1.Controllers
         // POST: Suprimentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Suprimento suprimento = await db.Suprimento.FindAsync(id);
+            Suprimento suprimento = db.Suprimento.Find(id);
             db.Suprimento.Remove(suprimento);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

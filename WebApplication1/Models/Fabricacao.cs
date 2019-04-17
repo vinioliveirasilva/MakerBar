@@ -25,6 +25,7 @@ namespace WebApplication1.Models
         public int IdMaquina { get; set; }
         public int IdPedido { get; set; }
         public int IdSuprimento { get; set; }
+        public int Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Estoque> Estoque { get; set; }

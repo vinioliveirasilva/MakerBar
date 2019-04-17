@@ -10,108 +10,107 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize(Roles = "0,1")]
-    public class MaquinasController : Controller
+    public class LoginController : Controller
     {
         private makerbarEntities db = new makerbarEntities();
 
-        // GET: Maquinas
+        // GET: Login
         public ActionResult Index()
         {
-            return View(db.Maquina.ToList());
+            return View(db.Login.ToList());
         }
 
-        // GET: Maquinas/Details/5
-        public ActionResult Details(int? id)
+        // GET: Login/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Maquina maquina = db.Maquina.Find(id);
-            if (maquina == null)
+            Login login = db.Login.Find(id);
+            if (login == null)
             {
                 return HttpNotFound();
             }
-            return View(maquina);
+            return View(login);
         }
 
-        // GET: Maquinas/Create
+        // GET: Login/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Maquinas/Create
+        // POST: Login/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome")] Maquina maquina)
+        public ActionResult Create([Bind(Include = "Cpf,Email,Nome,Senha,Ativo,Tipo")] Login login)
         {
             if (ModelState.IsValid)
             {
-                db.Maquina.Add(maquina);
+                db.Login.Add(login);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(maquina);
+            return View(login);
         }
 
-        // GET: Maquinas/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Login/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Maquina maquina = db.Maquina.Find(id);
-            if (maquina == null)
+            Login login = db.Login.Find(id);
+            if (login == null)
             {
                 return HttpNotFound();
             }
-            return View(maquina);
+            return View(login);
         }
 
-        // POST: Maquinas/Edit/5
+        // POST: Login/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome")] Maquina maquina)
+        public ActionResult Edit([Bind(Include = "Cpf,Email,Nome,Senha,Ativo,Tipo")] Login login)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(maquina).State = EntityState.Modified;
+                db.Entry(login).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(maquina);
+            return View(login);
         }
 
-        // GET: Maquinas/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Login/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Maquina maquina = db.Maquina.Find(id);
-            if (maquina == null)
+            Login login = db.Login.Find(id);
+            if (login == null)
             {
                 return HttpNotFound();
             }
-            return View(maquina);
+            return View(login);
         }
 
-        // POST: Maquinas/Delete/5
+        // POST: Login/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Maquina maquina = db.Maquina.Find(id);
-            db.Maquina.Remove(maquina);
+            Login login = db.Login.Find(id);
+            db.Login.Remove(login);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

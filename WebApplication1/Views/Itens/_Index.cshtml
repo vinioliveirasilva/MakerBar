@@ -1,0 +1,277 @@
+﻿@model IEnumerable<WebApplication1.Models.Item>
+
+<div class="row">
+    <div class="col s6" id="ListaItems">
+        <div style="height: 700px; overflow-x: hidden; overflow-y:auto">
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col s12 m11 @Html.DisplayFor(modelItem => item.Id)" onclick="selecionaItem(@Html.DisplayFor(modelItem => item.Id)) ">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">@Html.DisplayFor(modelItem => item.Nome)</span>
+                                <ul>
+                                    <li>Quantidade: @Html.DisplayFor(modelItem => item.Quantidade)</li>
+                                    <li>Resistencia: @Html.DisplayFor(modelItem => item.Resistencia)</li>
+                                    <li>Quantidade: @Html.DisplayFor(modelItem => item.Quantidade)</li>
+                                    <li>Arquivo Stl: @Html.DisplayFor(modelItem => item.Arquivo)</li>
+                                </ul>
+                            </div>
+                            <div class="card-action">
+                                <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+                                    <button type="button" onclick="EditarItem('@item.Id')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Editar</button>
+                                    <button type="button" onclick="ExcluirItem('@item.Id')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="col s12 m11">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Não ha Itens cadastrados para este pedido.</span>
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="col s6">
+
+        <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+            <button type="button" onclick="exibeAddItem()" class="btn btn-default" style="width:100%; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Adicionar Item</button>
+        </div>
+
+        <div id="FormAddItem">
+            <h4 style="text-align:center;">Cadastrar Item</h4>
+
+            <div id="formItem" class="form-horizontal">
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Nome do item</label>
+                    <div class="col-md-10">
+                        <input id="nome-inputItem" class="nome-inputItem" type="text" maxlength="100" name="Nome" placeholder="Base Disco Voador" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Qualidade</label>
+                    <div class="col-md-10">
+                        <input id="qualidade-inputItem" class="qualidade-inputItem" type="number" maxlength="1" name="Nome" placeholder="3" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Quantidade</label>
+                    <div class="col-md-10">
+                        <input id="quantidade-inputItem" class="quantidade-inputItem" type="number" maxlength="3" name="Nome" placeholder="1" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Resistencia</label>
+                    <div class="col-md-10">
+                        <input id="resistencia-inputItem" class="resistencia-inputItem" type="number" maxlength="1" name="Nome" placeholder="2" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Arquivo Stl</label>
+                    <div class="col-md-10">
+                        <input id="arquivo-inputItem" class="arquivo-inputItem" type="text" maxlength="200" name="Nome" placeholder="BaseFlyingCompactDisck.stl" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="createItem()" style="min-width:200px;" class="btn btn-default">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="FormEditaItem">
+            <h4 style="text-align:center;">Editar Item</h4>
+
+            <div id="formItem" class="form-horizontal">
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Nome do item</label>
+                    <div class="col-md-10">
+                        <input id="nome-input-editItem" class="nome-input-editItem" type="text" maxlength="100" name="Nome" placeholder="Base Disco Voador" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Qualidade</label>
+                    <div class="col-md-10">
+                        <input id="qualidade-input-editItem" class="qualidade-input-editItem" type="number" maxlength="1" name="Nome" placeholder="3" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Quantidade</label>
+                    <div class="col-md-10">
+                        <input id="quantidade-input-editItem" class="quantidade-input-editItem" type="number" maxlength="3" name="Nome" placeholder="1" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Resistencia</label>
+                    <div class="col-md-10">
+                        <input id="resistencia-input-editItem" class="resistencia-input-editItem" type="number" maxlength="1" name="Nome" placeholder="2" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Arquivo Stl</label>
+                    <div class="col-md-10">
+                        <input id="arquivo-input-editItem" class="arquivo-input-editItem" type="text" maxlength="200" name="Nome" placeholder="BaseFlyingCompactDisck.stl" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="salveItem()" style="min-width:200px;" class="btn btn-default">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        var IdItemAtual;
+
+        $('#FormAddItem').hide();
+        $('#FormEditaItem').hide();
+
+        function EscondeForms() {
+            $('#FormAddItem').hide();
+            $('#FormEditaItem').hide();
+            cleanFields();
+        }
+
+        function exibeAddItem() {
+            $('#FormEditaItem').hide();
+            $('#FormAddItem').show();
+        }
+
+        function exibeEditaItem() {
+            $('#FormAddItem').hide();
+            $('#FormEditaItem').show();
+        }
+
+        function cleanFields() {
+            $('#nome-inputItem')[0].value = "";
+            $('#nome-input-editItem')[0].value = "";
+            IdItemAtual = null;
+        }
+
+
+        function createItem() {
+           let Item = {
+                Nome: document.getElementById("nome-inputItem").value,
+                Qualidade: document.getElementById("qualidade-inputItem").value,
+                Resistencia : document.getElementById("resistencia-inputItem").value,
+                Quantidade: document.getElementById("quantidade-inputItem").value,
+                Arquivo: document.getElementById("arquivo-inputItem").value,
+                IdPedido: IdPedido
+            };
+
+            console.log(Item);
+
+            $.ajax({
+                url: '/Itens/Create',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(Item)
+            });
+
+            alert("Item registrado");
+            openCity(event, 'Itens-content', '/Itens/Index?id=' + IdPedido);
+        }
+
+        function EditarItem(Id)
+        {
+            IdItemAtual = Id;
+            getItem(Id);
+            exibeEditaItem();
+        }
+
+        function getItem(id) {
+            $.getJSON("/Itens/Get?id=" + id, function (data) {
+                $('#nome-input-editItem')[0].value = data.Nome;
+                $('#quantidade-input-editItem')[0].value = data.Quantidade;
+                $('#qualidade-input-editItem')[0].value = data.Qualidade;
+                $('#resistencia-input-editItem')[0].value = data.Resistencia;
+                $('#arquivo-input-editItem')[0].value = data.Arquivo;
+                IdItemAtual = data.Id;
+            })
+            .fail(function () {
+                IdItemAtual = null;
+            });
+        }
+
+        function ExcluirItem(Id) {
+            var excluir = confirm("Deseja realmente excluir esse Item?");
+            if (excluir == true) {
+                $.ajax({
+                    url: '/Itens/Deleta?id=' + Id,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                });
+                alert("Item excluido");
+                openCity(event, 'Itens-content', '/Itens/Index?id=' + IdPedido);
+            }
+        }
+
+        function salveItem() {
+            let Item = {
+                Nome: document.getElementById("nome-input-editItem").value,
+                Qualidade: document.getElementById("qualidade-input-editItem").value,
+                Resistencia: document.getElementById("resistencia-input-editItem").value,
+                Quantidade: document.getElementById("quantidade-input-editItem").value,
+                Arquivo: document.getElementById("arquivo-input-editItem").value,
+                IdPedido: IdPedido,
+                Id: IdItemAtual
+            };
+
+            $.ajax({
+                url: '/Itens/Edit',
+                type: 'post',
+                dataType: 'text',
+                contentType: 'application/json',
+                data: JSON.stringify(Item)
+            });
+            cleanFields();
+            alert("Item salvo");
+            openCity(event, 'Itens-content', '/Itens/Index?id=' + IdPedido);
+            IdItemAtual = null;
+            return false;
+        }
+
+        function selecionaItem(Id) {
+        }
+    </script>
+
+    @foreach (var item in Model)
+    {
+        <script>
+
+        $("div.@Html.DisplayFor(modelItem => item.Id)").mouseover(function () {
+            $("div.@Html.DisplayFor(modelItem => item.Id)").css("opacity", "0.8");
+        });
+
+        $("div.@Html.DisplayFor(modelItem => item.Id)").mouseout(function () {
+            $("div.@Html.DisplayFor(modelItem => item.Id)").css("opacity", "1");
+        });
+        </script>
+    }

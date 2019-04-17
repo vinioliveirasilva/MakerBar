@@ -13,10 +13,10 @@ namespace WebApplication1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EngSoftEntities1 : DbContext
+    public partial class makerbarEntities : DbContext
     {
-        public EngSoftEntities1()
-            : base("name=EngSoftEntities1")
+        public makerbarEntities()
+            : base("name=makerbarEntities")
         {
         }
     

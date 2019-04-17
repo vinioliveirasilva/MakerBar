@@ -1,0 +1,66 @@
+﻿@model WebApplication1.Models.Login
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Excluir</h3>
+
+<h5>tem certeza que deseja excluir este colaborador?</h5>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Senha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Senha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+    <div class="form-actions no-color">
+        <input type="submit" value="Excluir" class="btn btn-default" />
+        <div>
+            <button class="btn waves-effect waves-light" style="background-color:lightseagreen; margin-top:10px;">
+                @Html.ActionLink("Voltar a lista", "Index", null, new { @style = "color:white" })
+            </button>
+        </div>
+    </div>
+    }
+</div>

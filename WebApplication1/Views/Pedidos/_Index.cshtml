@@ -1,0 +1,231 @@
+﻿@model IEnumerable<WebApplication1.Models.Pedido>
+
+<div class="row">
+    <div class="col s6" id="ListaPedidos">
+        <div style="height: 700px; overflow-x: hidden; overflow-y:auto">
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col s12 m11 @Html.DisplayFor(modelItem => item.Id)" onclick="selecionaPedido(@Html.DisplayFor(modelItem => item.Id)) ">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">@Html.DisplayFor(modelItem => item.Identificador)</span>
+                                <ul>
+                                    <li>Status: @Html.DisplayFor(modelItem => item.Status)</li>
+                                </ul>
+                            </div>
+                            <div class="card-action">
+                                <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+                                    <button type="button" onclick="EditarPedido('@item.Id')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Editar</button>
+                                    <button type="button" onclick="ExcluirPedido('@item.Id')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="col s12 m11">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Não ha pedidos cadastrados para este cliente.</span>
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="col s6">
+
+        <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+            <button type="button" onclick="exibeAddPedido()" class="btn btn-default" style="width:100%; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Adicionar Pedido</button>
+        </div>
+
+        <div id="FormAddPedido">
+            <h4 style="text-align:center;">Cadastrar Pedido</h4>
+
+            <div id="formPedido" class="form-horizontal">
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Identificação do Pedido</label>
+                    <div class="col-md-10">
+                        <input id="nome-inputpedido" class="nome-inputpedido" type="text" maxlength="200" name="Nome" placeholder="DartVader (20/12/18)" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="createPedido()" style="min-width:200px;" class="btn btn-default">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="FormEditaPedido">
+            <h4 style="text-align:center;">Editar Pedido</h4>
+
+            <form id="formPedido" class="form-horizontal">
+                <div class="form-group">
+                    <label for="email-input" class="control-label col-md-2">Identificação do Pedido</label>
+                    <div class="col-md-10">
+                        <input type="text" id="nome-input-editpedido" class="nome-input-editpedido" maxlength="200" name="nome" placeholder="DartVader (20/12/18)" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="salvePedido()" style="min-width:200px;" class="btn btn-default">Salvar</button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        var IdPedidoAtual;
+
+        $('#FormAddPedido').hide();
+        $('#FormEditaPedido').hide();
+
+        function EscondeForms() {
+            $('#FormAddPedido').hide();
+            $('#FormEditaPedido').hide();
+            cleanFields();
+        }
+
+        function exibeAddPedido() {
+            $('#FormEditaPedido').hide();
+            $('#FormAddPedido').show();
+        }
+
+        function exibeEditaPedido() {
+            $('#FormAddPedido').hide();
+            $('#FormEditaPedido').show();
+        }
+
+        function cleanFields() {
+            $('#nome-inputpedido')[0].value = "";
+            $('#nome-input-editpedido')[0].value = "";
+            IdPedidoAtual = null;
+        }
+
+
+        function createPedido() {
+
+            let Pedido = {
+                Identificador: document.getElementById("nome-inputpedido").value,
+                IdCliente: IdCliente
+            };
+
+            console.log(Pedido);
+
+            $.ajax({
+                url: '/Pedidos/Create',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(Pedido)
+            });
+
+            alert("Pedido registrado");
+            openCity(event, 'Pedidos-content', '/Pedidos/Index?id=' + IdCliente);
+        }
+
+        function EditarPedido(Id)
+        {
+            getPedido(Id);
+            exibeEditaPedido();
+        }
+
+        function getPedido(id) {
+            $.getJSON("/Pedidos/Get?id=" + id, function (data) {
+                $('#nome-input-editpedido')[0].value = data.Identificador;
+                IdPedidoAtual = data.Id;
+            })
+            .fail(function () {
+                IdPedidoAtual = null;
+            });
+        }
+
+        function ExcluirPedido(Id) {
+            var excluir = confirm("Deseja realmente excluir esse Pedido?");
+            if (excluir == true) {
+                $.ajax({
+                    url: '/Pedidos/Deleta?id=' + Id,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                });
+                alert("Pedido excluido");
+                openCity(event, 'Pedidos-content', '/Pedidos/Index?id=' + IdCliente);
+            }
+        }
+
+        function salvePedido() {
+            let Pedido = {
+                Id: IdPedidoAtual,
+                Identificador: document.getElementById("nome-input-editpedido").value,
+                IdCliente: IdCliente
+            };
+
+            $.ajax({
+                url: '/Pedidos/Edit',
+                type: 'post',
+                dataType: 'text',
+                contentType: 'application/json',
+                data: JSON.stringify(Pedido)
+            });
+            cleanFields();
+            alert("Pedido salvo");
+            openCity(event, 'Pedidos-content', '/Pedidos/Index?id=' + IdCliente);
+            return false;
+        }
+
+        function selecionaPedido(Id) {
+            if (IdPedido != null) {
+                var doc = document.getElementsByClassName(IdPedido);
+                $(doc).css("background-color", "white");
+            }
+            IdPedido = Id;
+            if (IdPedido != null) {
+                var doc = document.getElementsByClassName(IdPedido);
+                $(doc).css("background-color", "red");
+            }  
+            
+        }
+    </script>
+
+    @foreach (var item in Model)
+    {
+        <script>
+
+        $("div.@Html.DisplayFor(modelItem => item.Id)").mouseover(function () {
+            $("div.@Html.DisplayFor(modelItem => item.Id)").css("opacity", "0.8");
+        });
+
+        $("div.@Html.DisplayFor(modelItem => item.Id)").mouseout(function () {
+            $("div.@Html.DisplayFor(modelItem => item.Id)").css("opacity", "1");
+        });
+        </script>
+    }
+
+<script>
+    if (IdPedido != null) {
+        var doc = document.getElementsByClassName(IdPedido);
+        $(doc).css("background-color", "red");
+    }  
+
+</script>

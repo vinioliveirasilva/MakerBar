@@ -11,15 +11,88 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = "0,1")]
     public class ItensController : Controller
     {
         private makerbarEntities db = new makerbarEntities();
 
-        // GET: Itens
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? id)
         {
-            var item = db.Item.Include(i => i.Pedido);
-            return View(await item.ToListAsync());
+            if (id != null)
+            {
+                Pedido pedido = await db.Pedido.FindAsync(id);
+
+                return PartialView("_Index", pedido.Item);
+            }
+
+            return PartialView("_Index", new List<Item>());
+        }
+
+        [HttpGet]
+        public ActionResult Get(int id)
+        {
+            Item item = db.Item.Find(id);
+            if (item == null)
+            {
+                return null;
+            }
+            //return new List<Cliente> { cliente };
+            return Json(item, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<bool> Create(Item item)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Item.Add(item);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public async Task<bool> Edit(Item item)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(item).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public async Task<bool> Deleta(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Item item = db.Item.Find(id);
+                    db.Item.Remove(item);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
         }
 
         // GET: Itens/Details/5
@@ -36,7 +109,7 @@ namespace WebApplication1.Controllers
             }
             return View(item);
         }
-
+        /*
         // GET: Itens/Create
         public ActionResult Create()
         {
@@ -120,6 +193,8 @@ namespace WebApplication1.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        */
 
         protected override void Dispose(bool disposing)
         {

@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <style>
+        div.scroll {
+            overflow: auto;
+        }
 
         .nav-wrapper {
             background-color: black;
@@ -53,7 +57,9 @@
         }
     </style>
     <script>
-        function openCity(evt, cityName) {
+        var IdCliente, IdPedido, IdItem, IdFabricacao;
+
+        function openCity(evt, cityName, loadurl) {
             // Declare all variables
             var i, tabcontent, tablinks;
 
@@ -69,9 +75,14 @@
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
 
+            $('#'+cityName).load(loadurl);
+
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
+
+            return false;
+            
         }
     </script>
 </head>
@@ -84,6 +95,7 @@
                 <li>@Html.ActionLink("Home", "Home", "Home")</li>
                 <li>@Html.ActionLink("Suprimentos", "Index", "Suprimentos")</li>
                 <li>@Html.ActionLink("Maquinas", "Index", "Maquinas")</li>
+                <li>@Html.ActionLink("Colaboradores", "Index", "Login")</li>
             </ul>
             <button class="btn waves-effect waves-light buttonLogout">
                 @Html.ActionLink("Logout", "Logout", "Home")
@@ -91,7 +103,7 @@
         </div>
     </nav>
 
-    
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -99,5 +111,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

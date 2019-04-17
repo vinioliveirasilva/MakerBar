@@ -1,0 +1,277 @@
+﻿@model IEnumerable<WebApplication1.Models.Fabricacao>
+
+<div class="row">
+    <div class="col s6" id="ListaFabricacaos">
+        <div style="height: 700px; overflow-x: hidden; overflow-y:auto">
+            @if (Model.Count() > 0)
+            {
+                foreach (var Fabricacao in Model)
+                {
+                    <div class="col s12 m11 @Html.DisplayFor(modelFabricacao => Fabricacao.Id)" onclick="selecionaFabricacao(@Html.DisplayFor(modelFabricacao => Fabricacao.Id)) ">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">@Html.DisplayFor(modelFabricacao => Fabricacao.Id)</span>
+                                <ul></ul>
+                            </div>
+                            <div class="card-action">
+                                <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+                                    <button type="button" onclick="EditarFabricacao('@Fabricacao.Id')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Editar</button>
+                                    <button type="button" onclick="ExcluirFabricacao('@Fabricacao.Id')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="col s12 m11">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Não há fabricações agendadas para este pedido.</span>
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="col s6">
+
+        <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+            <button type="button" onclick="exibeAddFabricacao()" class="btn btn-default" style="width:100%; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Adicionar Fabricacao</button>
+        </div>
+
+        <div id="FormAddFabricacao">
+            <h4 style="text-align:center;">Cadastrar Fabricacao</h4>
+
+            <div id="formFabricacao" class="form-horizontal">
+
+
+
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Nome do Fabricacao</label>
+                    <div class="col-md-10">
+                        <input id="nome-inputFabricacao" class="nome-inputFabricacao" type="text" maxlength="100" name="Nome" placeholder="Base Disco Voador" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Qualidade</label>
+                    <div class="col-md-10">
+                        <input id="qualidade-inputFabricacao" class="qualidade-inputFabricacao" type="number" maxlength="1" name="Nome" placeholder="3" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Quantidade</label>
+                    <div class="col-md-10">
+                        <input id="quantidade-inputFabricacao" class="quantidade-inputFabricacao" type="number" maxlength="3" name="Nome" placeholder="1" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Resistencia</label>
+                    <div class="col-md-10">
+                        <input id="resistencia-inputFabricacao" class="resistencia-inputFabricacao" type="number" maxlength="1" name="Nome" placeholder="2" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Arquivo Stl</label>
+                    <div class="col-md-10">
+                        <input id="arquivo-inputFabricacao" class="arquivo-inputFabricacao" type="text" maxlength="200" name="Nome" placeholder="BaseFlyingCompactDisck.stl" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="createFabricacao()" style="min-width:200px;" class="btn btn-default">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="FormEditaFabricacao">
+            <h4 style="text-align:center;">Editar Fabricacao</h4>
+
+            <div id="formFabricacao" class="form-horizontal">
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Nome do Fabricacao</label>
+                    <div class="col-md-10">
+                        <input id="nome-input-editFabricacao" class="nome-input-editFabricacao" type="text" maxlength="100" name="Nome" placeholder="Base Disco Voador" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Qualidade</label>
+                    <div class="col-md-10">
+                        <input id="qualidade-input-editFabricacao" class="qualidade-input-editFabricacao" type="number" maxlength="1" name="Nome" placeholder="3" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Quantidade</label>
+                    <div class="col-md-10">
+                        <input id="quantidade-input-editFabricacao" class="quantidade-input-editFabricacao" type="number" maxlength="3" name="Nome" placeholder="1" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Resistencia</label>
+                    <div class="col-md-10">
+                        <input id="resistencia-input-editFabricacao" class="resistencia-input-editFabricacao" type="number" maxlength="1" name="Nome" placeholder="2" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">Arquivo Stl</label>
+                    <div class="col-md-10">
+                        <input id="arquivo-input-editFabricacao" class="arquivo-input-editFabricacao" type="text" maxlength="200" name="Nome" placeholder="BaseFlyingCompactDisck.stl" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="salveFabricacao()" style="min-width:200px;" class="btn btn-default">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        var IdFabricacaoAtual;
+
+        $('#FormAddFabricacao').hide();
+        $('#FormEditaFabricacao').hide();
+
+        function EscondeForms() {
+            $('#FormAddFabricacao').hide();
+            $('#FormEditaFabricacao').hide();
+            cleanFields();
+        }
+
+        function exibeAddFabricacao() {
+            $('#FormEditaFabricacao').hide();
+            $('#FormAddFabricacao').show();
+        }
+
+        function exibeEditaFabricacao() {
+            $('#FormAddFabricacao').hide();
+            $('#FormEditaFabricacao').show();
+        }
+
+        function cleanFields() {
+            $('#nome-inputFabricacao')[0].value = "";
+            $('#nome-input-editFabricacao')[0].value = "";
+            IdFabricacaoAtual = null;
+        }
+
+
+        function createFabricacao() {
+
+            let Fabricacao = {
+                Nome: document.getElementById("nome-inputFabricacao").value,
+                Qualidade: document.getElementById("qualidade-inputFabricacao").value,
+                Resistencia : document.getElementById("resistencia-inputFabricacao").value,
+                Quantidade: document.getElementById("quantidade-inputFabricacao").value,
+                Arquivo: document.getElementById("arquivo-inputFabricacao").value,
+                IdPedido: IdPedido
+            };
+
+            console.log(Fabricacao);
+
+            $.ajax({
+                url: '/Itens/Create',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(Fabricacao)
+            });
+
+            alert("Fabricacao registrado");
+            openCity(event, 'Fabricacoes-content', '/Fabricacoes/Index?id=' + IdPedido);
+        }
+
+        function EditarFabricacao(Id)
+        {
+            IdFabricacaoAtual = Id;
+            getFabricacao(Id);
+            exibeEditaFabricacao();
+        }
+
+        function getFabricacao(id) {
+            $.getJSON("/Fabricacoes/Get?id=" + id, function (data) {
+                $('#nome-input-editFabricacao')[0].value = data.Nome;
+                $('#quantidade-input-editFabricacao')[0].value = data.Quantidade;
+                $('#qualidade-input-editFabricacao')[0].value = data.Qualidade;
+                $('#resistencia-input-editFabricacao')[0].value = data.Resistencia;
+                $('#arquivo-input-editFabricacao')[0].value = data.Arquivo;
+                IdFabricacaoAtual = data.Id;
+            })
+            .fail(function () {
+                IdFabricacaoAtual = null;
+            });
+        }
+
+        function ExcluirFabricacao(Id) {
+            var excluir = confirm("Deseja realmente excluir esse Fabricacao?");
+            if (excluir == true) {
+                $.ajax({
+                    url: '/Fabricacoes/Deleta?id=' + Id,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                });
+                alert("Fabricacao excluido");
+                openCity(event, 'Fabricacoes-content', '/Fabricacoes/Index?id=' + IdPedido);
+            }
+        }
+
+        function salveFabricacao() {
+            let Fabricacao = {
+                Nome: document.getElementById("nome-input-editFabricacao").value,
+                Qualidade: document.getElementById("qualidade-input-editFabricacao").value,
+                Resistencia: document.getElementById("resistencia-input-editFabricacao").value,
+                Quantidade: document.getElementById("quantidade-input-editFabricacao").value,
+                Arquivo: document.getElementById("arquivo-input-editFabricacao").value,
+                IdPedido: IdPedido,
+                Id: IdFabricacaoAtual
+            };
+
+            $.ajax({
+                url: '/Itens/Edit',
+                type: 'post',
+                dataType: 'text',
+                contentType: 'application/json',
+                data: JSON.stringify(Fabricacao)
+            });
+            cleanFields();
+            alert("Fabricacao salvo");
+            openCity(event, 'Fabricacoes-content', '/Fabricacoes/Index?id=' + IdPedido);
+            IdFabricacaoAtual = null;
+            return false;
+        }
+
+        function selecionaFabricacao(Id) {
+            alert("Fabricacao selecionado.");
+        }
+    </script>
+
+    @foreach (var Fabricacao in Model)
+    {
+        <script>
+
+        $("div.@Html.DisplayFor(modelFabricacao => Fabricacao.Id)").mouseover(function () {
+            $("div.@Html.DisplayFor(modelFabricacao => Fabricacao.Id)").css("opacity", "0.8");
+        });
+
+        $("div.@Html.DisplayFor(modelFabricacao => Fabricacao.Id)").mouseout(function () {
+            $("div.@Html.DisplayFor(modelFabricacao => Fabricacao.Id)").css("opacity", "1");
+        });
+        </script>
+    }

@@ -61,6 +61,7 @@ CREATE TABLE Fabricacao (
 	,IdMaquina int NOT NULL
 	,IdPedido int NOT NULL
 	,IdSuprimento int NOT NULL
+	,Status int NOT NULL
 	,PRIMARY KEY(Id)
 	,FOREIGN KEY(IdMaquina)	REFERENCES Maquina(Id)
 	,FOREIGN KEY(IdPedido)	REFERENCES Pedido(Id)

@@ -4,56 +4,33 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h2>Gerencia</h2>
+        <h4>Sistema MKMS</h4>
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Clientes')">Clientes</button>
-            <button class="tablinks" onclick="openCity(event, 'Pedidos')">Pedidos</button>
-            <button class="tablinks" onclick="openCity(event, 'ItensPedido')">Itens do Pedido</button>
-            <button class="tablinks" onclick="openCity(event, 'Fabricacoes')">Fabricações</button>
+            <button class="tablinks" onclick="openCity(event, 'Clientes-content', '/Clientes/Index')">Clientes</button>
+            <button class="tablinks" onclick="openCity(event, 'Pedidos-content', '/Pedidos/Index?id='+ IdCliente)">Pedidos</button>
+            <button class="tablinks" onclick="openCity(event, 'Itens-content', '/Itens/Index?id=' + IdPedido)">Itens do Pedido</button>
+            <button class="tablinks" onclick="openCity(event, 'Fabricacoes-content', '/Fabricacoes/Index?id=' + IdPedido)">Fabricações</button>
         </div>
 
         <!-- Tab content -->
-        <div id="Clientes" class="tabcontent">
-            <h3>Gerencia de clientes</h3>
-
-            <div id="clientes-content">
-               
+        <div id="Clientes-content" class="tabcontent" style="max-height: 708px;">
+            <div id="Clientes-content">
             </div>
-            <!--Html.RenderAction("Index", "Clientes");} -->
         </div>
 
-        <div id="Pedidos" class="tabcontent">
-            <h3>Gerencia de pedidos</h3>
-            <p>
-                Sed vel libero mauris. Praesent id mollis magna, in tristique quam. Fusce consequat ex lorem,
-                tincidunt blandit elit viverra a. Nunc varius elit viverra mattis sagittis.
-                Pellentesque facilisis turpis vel neque pharetra, vitae pulvinar quam volutpat. Proin faucibus,
-                tellus id mollis condimentum, dui arcu vehicula sapien, sed pharetra est nulla id diam. Sed diam ipsum,
-                iaculis sed est at, finibus ullamcorper tellus. Donec tincidunt sem non massa ultrices, at tempor quam gravida.
-            </p>
+        <div id="Pedidos-content" class="tabcontent">
+            <div id="Pedidos-content">
+            </div>
         </div>
 
-        <div id="ItensPedido" class="tabcontent">
-            <h3>Gerencia de itens dos pedidos</h3>
-            <p>
-                Proin pulvinar, tortor at tristique eleifend, purus mauris sodales felis, nec semper lectus quam ut nulla.
-                Etiam pharetra, nibh eget aliquet mollis, nisl tellus finibus felis, a ultricies nibh libero vel purus.
-                Curabitur et rutrum tortor. Nunc nec imperdiet ex. Nulla facilisi. Integer ornare accumsan lacinia.
-            </p>
+        <div id="Itens-content" class="tabcontent">
+            <div id="Itens-content">
+            </div>
         </div>
 
-        <div id="Fabricacoes" class="tabcontent">
-            <h3>Gerencia de fabricaçoes</h3>
-            <p>
-                Etiam porttitor turpis sed dignissim porta.
-                Etiam elementum vitae turpis non hendrerit. Donec dapibus, odio at vehicula convallis,
-                felis enim egestas ligula, sagittis mollis ex nibh vel massa. Proin pretium cursus consequat.
-                Nulla sit amet mollis ligula, sit amet semper leo. Suspendisse a dolor consectetur, varius libero ac.
-            </p>
+        <div id="Fabricacoes-content" class="tabcontent">
+            <div id="Fabricacoes-content">
+            </div>
         </div>
     </div>
 </div>
-
-<script>
-    $('#clientes-content').load('/Clientes/Index');
-</script>

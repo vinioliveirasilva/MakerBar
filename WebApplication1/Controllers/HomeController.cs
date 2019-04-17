@@ -13,6 +13,7 @@ namespace WebApplication1.Controllers
             return View(new Login());
         }
 
+        [Authorize(Roles = "0,1")]
         public ActionResult CreateCliente()
         {
             return PartialView("CreateCliente");
@@ -20,8 +21,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Logout()
         {
-            //FormsAuthentication.SetAuthCookie();
-            //Session["Nome"] = vLogin.Nome;
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -53,30 +53,30 @@ namespace WebApplication1.Controllers
                                 }
 
                                 Session["Nome"] = vLogin.Nome;
-                                return RedirectToAction("Index", "Home");
+                                return RedirectToAction("Home", "Home");
                             }
                             else
                             {
                                 ModelState.AddModelError("", "Senha informada Inválida!!!");
-                                return View(new Login());
+                                return View("Index", new Login());
                             }
                         }
                         else
                         {
                             ModelState.AddModelError("", "Usuário sem acesso para usar o sistema!!!");
-                            return View(new Login());
+                            return View("Index", new Login());
                         }
                     }
                     else
                     {
                         ModelState.AddModelError("", "E-mail informado inválido!!!");
-                        return View(new Login());
+                        return View("Index", new Login());
                     }
                 }
             }
             return View(login);
         }
-
+        [Authorize(Roles = "0,1")]
         public ActionResult Home()
         {
             return View();

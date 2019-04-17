@@ -150,12 +150,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItensController.cs" />
     <Compile Include="Controllers\ItensFabricacaoController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MaquinasController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\SuprimentosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Role.cs" />
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -252,52 +254,40 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Maquinas\Create.cshtml" />
-    <Content Include="Views\Maquinas\Delete.cshtml" />
-    <Content Include="Views\Maquinas\Details.cshtml" />
-    <Content Include="Views\Maquinas\Edit.cshtml" />
-    <Content Include="Views\Maquinas\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Estoques\Create.cshtml" />
     <Content Include="Views\Estoques\Delete.cshtml" />
     <Content Include="Views\Estoques\Details.cshtml" />
     <Content Include="Views\Estoques\Edit.cshtml" />
     <Content Include="Views\Estoques\Index.cshtml" />
-    <Content Include="Views\Pedidos\Create.cshtml" />
-    <Content Include="Views\Pedidos\Delete.cshtml" />
-    <Content Include="Views\Pedidos\Details.cshtml" />
-    <Content Include="Views\Pedidos\Edit.cshtml" />
-    <Content Include="Views\Pedidos\Index.cshtml" />
     <Content Include="Views\ItensFabricacao\Create.cshtml" />
     <Content Include="Views\ItensFabricacao\Delete.cshtml" />
     <Content Include="Views\ItensFabricacao\Details.cshtml" />
     <Content Include="Views\ItensFabricacao\Edit.cshtml" />
     <Content Include="Views\ItensFabricacao\Index.cshtml" />
-    <Content Include="Views\Itens\Create.cshtml" />
-    <Content Include="Views\Itens\Delete.cshtml" />
-    <Content Include="Views\Itens\Details.cshtml" />
-    <Content Include="Views\Itens\Edit.cshtml" />
-    <Content Include="Views\Itens\Index.cshtml" />
-    <Content Include="Views\Fabricacoes\Create.cshtml" />
-    <Content Include="Views\Fabricacoes\Delete.cshtml" />
-    <Content Include="Views\Fabricacoes\Details.cshtml" />
-    <Content Include="Views\Fabricacoes\Edit.cshtml" />
-    <Content Include="Views\Fabricacoes\Index.cshtml" />
-    <Content Include="Views\Clientes\Create.cshtml" />
-    <Content Include="Views\Clientes\Delete.cshtml" />
-    <Content Include="Views\Clientes\Details.cshtml" />
-    <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\_Index.cshtml" />
+    <Content Include="Views\Home\CreateCliente.cshtml" />
     <Content Include="Views\Suprimentos\Create.cshtml" />
     <Content Include="Views\Suprimentos\Delete.cshtml" />
     <Content Include="Views\Suprimentos\Details.cshtml" />
     <Content Include="Views\Suprimentos\Edit.cshtml" />
     <Content Include="Views\Suprimentos\Index.cshtml" />
-    <Content Include="Views\Home\CreateCliente.cshtml" />
+    <Content Include="Views\Maquinas\Create.cshtml" />
+    <Content Include="Views\Maquinas\Delete.cshtml" />
+    <Content Include="Views\Maquinas\Details.cshtml" />
+    <Content Include="Views\Maquinas\Edit.cshtml" />
+    <Content Include="Views\Maquinas\Index.cshtml" />
+    <Content Include="Views\Pedidos\_Index.cshtml" />
+    <Content Include="Views\Itens\_Index.cshtml" />
+    <Content Include="Views\Fabricacoes\_Index.cshtml" />
+    <Content Include="Views\Login\Create.cshtml" />
+    <Content Include="Views\Login\Delete.cshtml" />
+    <Content Include="Views\Login\Details.cshtml" />
+    <Content Include="Views\Login\Edit.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

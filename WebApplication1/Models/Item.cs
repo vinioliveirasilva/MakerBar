@@ -28,7 +28,7 @@ namespace WebApplication1.Models
         public int Quantidade { get; set; }
         public int IdPedido { get; set; }
     
-        public virtual Pedido Pedido { get; set; }
+        public Pedido Pedido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItensFabricacao> ItensFabricacao { get; set; }
     }

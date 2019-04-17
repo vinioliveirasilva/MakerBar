@@ -1,148 +1,319 @@
 ﻿@model IEnumerable<WebApplication1.Models.Cliente>
 
-<div id="clientes-index">
-    <p onclick="exibeFormNovo()" style="text-decoration:underline; cursor:pointer; color:cornflowerblue">
-        Create New
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TelCel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TelRes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Endereco)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TelCel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TelRes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Cpf }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Cpf }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Cpf })
-                </td>
-            </tr>
-        }
-    </table>
-</div>
+<div class="row">
+    <div class="col s6" id="ListaClientes">
+        <div style="height: 700px; overflow-x: hidden; overflow-y:auto">
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col s12 m11 @Html.DisplayFor(modelItem => item.Cpf)" onclick="selecionaCliente(@Html.DisplayFor(modelItem => item.Cpf)) ">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">@Html.DisplayFor(modelItem => item.Nome)</span>
+                                <ul>
+                                    <li>Email: @Html.DisplayFor(modelItem => item.Email)</li>
+                                    <li>Cpf: @Html.DisplayFor(modelItem => item.Cpf)</li>
+                                    <li>Tel. Celular: @Html.DisplayFor(modelItem => item.TelCel)</li>
+                                    <li>Tel. Residencial: @Html.DisplayFor(modelItem => item.TelRes)</li>
+                                    <li>Endereço: @Html.DisplayFor(modelItem => item.Endereco)</li>
+                                </ul>
+                            </div>
+                            <div class="card-action">
+                                <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+                                    <button type="button" onclick="EditarCliente('@item.Cpf')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Editar</button>
+                                    <button type="button" onclick="ExcluirCliente('@item.Cpf')" class="btn btn-default" style="cursor:pointer; color:cornflowerblue; color:white; background-color:darkgray">Excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+            <div class="col s12 m11">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Não ha clientes cadastrados.</span>
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
 
+    </div>
+    <div class="col s6">
 
-<div id="cliente-form-content">
-    <h2>Create</h2>
+        <div class="col-md-offset-2 col-md-10" style="margin:10px;">
+            <button type="button" onclick="exibeAddCliente()" class="btn btn-default" style="width:100%; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Adicionar Cliente</button>
+        </div>
 
-        <div class="form-horizontal">
-            <h4>Cliente</h4>
-            <hr />
-            
-            <div class="form-group">
-                <label for="cpf-input" class="control-label col-md-2">CPF</label>
-                <div class="col-md-10">
-                    <input id="cpf-input" type="text" name=Cpf class="form-control" />
+        <div id="FormAddCliente">
+            <h4 style="text-align:center;">Cadastrar Cliente</h4>
+
+            <div id="formCliente" class="form-horizontal">
+                <div class="form-group">
+                    <label for="nome-input" class="control-label col-md-2">Nome</label>
+                    <div class="col-md-10">
+                        <input type="text" id="nome-input" class="form-control" maxlength="100" name="Nome" placeholder="Gandalf T. Grey" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">CPF</label>
+                    <div class="col-md-10">
+                        <input id="cpf-input" class="cpf-input" type="text" maxlength="14" name=Cpf placeholder="999.999.99-99" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="endereco-input" class="control-label col-md-2">Endereço</label>
+                    <div class="col-md-10">
+                        <input type="text" id="endereco-input" class="form-control" maxlength="100" name="Endereco" placeholder="Galaxia andromeda, Numero 42 " required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telcel-input" class="control-label col-md-2">Telefone Ceular</label>
+                    <div class="col-md-10">
+                        <input type="text" class="telcel-input" maxlength="15" id="telcel-input" name="TelCel" placeholder="(XX) 9XXXX-XXXX" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telres-input" class="control-label col-md-2">Telefone Residencial</label>
+                    <div class="col-md-10">
+                        <input type="text" class="telres-input" maxlength="14" id="telres-input" name="TelRes" placeholder="(ZZ) ZZZZ-ZZZZ" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email-input" class="control-label col-md-2">E-mail</label>
+                    <div class="col-md-10">
+                        <input type="text" id="email-input" maxlength="50" class="form-control" name="Email" placeholder="email@domain.com" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="createCliente()" style="min-width:200px;" class="btn btn-default">Cadastrar</button>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="endereco-input" class="control-label col-md-2">Endereço</label>
-                <div class="col-md-10">
-                    <input type="text" id="endereco-input" class="form-control" name="Endereco" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="nome-input" class="control-label col-md-2">Nome</label>
-                <div class="col-md-10">
-                    <input type="text" id="nome-input" class="form-control" name="Nome" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="telcel-input" class="control-label col-md-2">Telefone Ceular</label>
-                <div class="col-md-10">
-                    <input type="text" id="telcel-input" class="form-control" name="TelCel" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="telres-input" class="control-label col-md-2">Telefone Residencial</label>
-                <div class="col-md-10">
-                    <input type="text" id="telres-input" class="form-control" name="TelRes" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email-input" class="control-label col-md-2">E-mail</label>
-                <div class="col-md-10">
-                    <input type="text" id="email-input" class="form-control" name="Email" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-default" onclick="createCliente()">Criar</button>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
                 </div>
             </div>
         </div>
-    <div>
-        <p onclick="exibeIndex()" style="text-decoration:underline; cursor:pointer; color:cornflowerblue">
-            Back to List
-        </p>
+
+        <div id="FormEditaCliente">
+            <h4 style="text-align:center;">Editar Cliente</h4>
+
+            <div id="formCliente" class="form-horizontal"">
+                <div class="form-group">
+                    <label for="nome-input" class="control-label col-md-2">Nome</label>
+                    <div class="col-md-10">
+                        <input type="text" class="nome-input-edit" id="nome-input-edit" maxlength="100" name="Nome" placeholder="Gandalf T. Grey" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf-input" class="control-label col-md-2">CPF</label>
+                    <div class="col-md-10">
+                        <input id="cpf-input-edit" class="cpf-input-edit" type="text" maxlength="14" name=Cpf placeholder="999.999.99-99" required disabled />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="endereco-input" class="control-label col-md-2">Endereço</label>
+                    <div class="col-md-10">
+                        <input type="text" id="endereco-input-edit" class="endereco-input-edit" maxlength="100" name="Endereco" placeholder="Galaxia andromeda, Numero 42 " required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telcel-input" class="control-label col-md-2">Telefone Ceular</label>
+                    <div class="col-md-10">
+                        <input type="text" maxlength="15" id="telcel-input-edit" class="telcel-input-edit" name="TelCel" placeholder="(XX) 9XXXX-XXXX" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telres-input" class="control-label col-md-2">Telefone Residencial</label>
+                    <div class="col-md-10">
+                        <input type="text" maxlength="14" id="telres-input-edit" class="telres-input-edit" name="TelRes" placeholder="(ZZ) ZZZZ-ZZZZ" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email-input" class="control-label col-md-2">E-mail</label>
+                    <div class="col-md-10">
+                        <input type="text" id="email-input-edit" class="email-input-edit" maxlength="50" name="Email" placeholder="email@domain.com" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" onclick="salveCliente()" style="min-width:200px;" class="btn btn-default">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-offset-2 col-md-10" style="margin-top:10px; margin-bottom:10px">
+                    <button type="button" onclick="EscondeForms()" class="btn btn-default" style="min-width:200px; cursor:pointer; color:cornflowerblue; color:white; background-color:lightseagreen">Cancelar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
+    <script>
 
-    $('#cliente-form-content').hide();
+        $('#FormAddCliente').hide();
+        $('#FormEditaCliente').hide();
 
-    function exibeFormNovo() {
-        $('#clientes-index').hide();
-        $('#cliente-form-content').show();
-    }
+        function EscondeForms() {
+            $('#FormAddCliente').hide();
+            $('#FormEditaCliente').hide();
+            cleanFields();
+        }
 
-    function exibeIndex() {
-        $('#cliente-form-content').hide();
-        $('#clientes-index').show();
-    }
+        function exibeAddCliente() {
+            $('#FormEditaCliente').hide();
+            $('#FormAddCliente').show();
+        }
 
-    
-    function createCliente() {
+        function exibeEditaCliente() {
+            $('#FormAddCliente').hide();
+            $('#FormEditaCliente').show();
+        }
 
-        let cliente = {
-            Cpf: document.getElementById("cpf-input").value,
-            Endereco: document.getElementById("endereco-input").value,
-            Nome: document.getElementById("nome-input").value,
-            TelCel: document.getElementById("telcel-input").value,
-            TelRes: document.getElementById("telres-input").value,
-            Email: document.getElementById("email-input").value
-        };
+        function cleanFields() {
+            $('#nome-input')[0].value = "";
+            $('#endereco-input')[0].value = "";
+            $('#cpf-input')[0].value = "";
+            $('#telres-input')[0].value = "";
+            $('#telcel-input')[0].value = "";
+            $('#email-input')[0].value = "";
 
-        $.post('/Clientes/Create',
-            {
-                cliente: cliente
-            }, (retorno) => {
-                alert(retorno);
-                $('#clientes-content').load('/Clientes/Index');
+            $('#nome-input-edit')[0].value = "";
+            $('#endereco-input-edit')[0].value = "";
+            $('#cpf-input-edit')[0].value = "";
+            $('#telres-input-edit')[0].value = "";
+            $('#telcel-input-edit')[0].value = "";
+            $('#email-input-edit')[0].value = "";
+        }
+
+
+        function createCliente() {
+
+            let cliente = {
+                Cpf: document.getElementById("cpf-input").value,
+                Endereco: document.getElementById("endereco-input").value,
+                Nome: document.getElementById("nome-input").value,
+                TelCel: document.getElementById("telcel-input").value,
+                TelRes: document.getElementById("telres-input").value,
+                Email: document.getElementById("email-input").value
+            };
+
+            $.ajax({
+                url: '/Clientes/Create',
+                type: 'post',
+                dataType: 'text',
+                contentType: 'application/json',
+                data: JSON.stringify(cliente)
+            });
+            alert("Cliente registrado");
+            openCity(event, 'Clientes-content', '/Clientes/Index');
+        }
+
+        function EditarCliente(cpf)
+        {
+            getCliente(cpf);
+            exibeEditaCliente();
+        }
+
+        function getCliente(cpf) {
+            $.getJSON("/Clientes/Get?id=" + cpf, function (data) {
+                $('#nome-input-edit')[0].value = data.Nome;
+                $('#endereco-input-edit')[0].value = data.Endereco;
+                $('#cpf-input-edit')[0].value = data.Cpf;
+                $('#telres-input-edit')[0].value = data.TelRes;
+                $('#telcel-input-edit')[0].value = data.TelCel;
+                $('#email-input-edit')[0].value = data.Email;
+            })
+            .fail(function () {
+                alert("Não foi possivel editar cliente");
+            });
+        }
+
+        function ExcluirCliente(cpf) {
+            var excluir = confirm("Deseja realmente excluir esse cliente?");
+            if (excluir == true) {
+                $.ajax({
+                    url: '/Clientes/Deleta?id=' + cpf,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                });
+                alert("Cliente excluido");
+                openCity(event, 'Clientes-content', '/Clientes/Index');
             }
-        );       
-    }
-    
+        }
 
+        function salveCliente() {
+            let cliente = {
+                Cpf: document.getElementById("cpf-input-edit").value,
+                Endereco: document.getElementById("endereco-input-edit").value,
+                Nome: document.getElementById("nome-input-edit").value,
+                TelCel: document.getElementById("telcel-input-edit").value,
+                TelRes: document.getElementById("telres-input-edit").value,
+                Email: document.getElementById("email-input-edit").value
+            };
+
+            $.ajax({
+                url: '/Clientes/Edit',
+                type: 'post',
+                dataType: 'text',
+                contentType: 'application/json',
+                data: JSON.stringify(cliente)
+            });
+
+            alert("Cliente salvo");
+            cleanFields();
+            openCity(event, 'Clientes-content', '/Clientes/Index');
+        }
+
+        function selecionaCliente(cpf) {
+            if (IdCliente != null) {
+                var doc = document.getElementsByClassName(IdCliente);
+                $(doc).css("background-color", "white");
+            }  
+            IdCliente = cpf;
+            IdPedido = null;
+            IdItem = null;
+            if (IdCliente != null) {
+                var doc = document.getElementsByClassName(IdCliente);
+                $(doc).css("background-color", "blue");
+            }            
+        }
+
+        $('.cpf-input').mask('000.000.000-00', { reverse: true });
+        $('.telres-input').mask('(00) 0000-0000');
+        $('.telcel-input').mask('(00) 00000-0000');
+
+        $('.cpf-input-edit').mask('000.000.000-00', { reverse: true });
+        $('.telres-input-edit').mask('(00) 0000-0000');
+        $('.telcel-input-edit').mask('(00) 00000-0000');
+    </script>
+
+    @foreach (var item in Model)
+    {
+        <script>
+
+        $("div.@Html.DisplayFor(modelItem => item.Cpf)").mouseover(function () {
+            $("div.@Html.DisplayFor(modelItem => item.Cpf)").css("opacity", "0.8");
+        });
+
+        $("div.@Html.DisplayFor(modelItem => item.Cpf)").mouseout(function () {
+            $("div.@Html.DisplayFor(modelItem => item.Cpf)").css("opacity", "1");
+            });
+        </script>
+    }
+
+<script>
+    if (IdCliente != null) {
+        var doc = document.getElementsByClassName(IdCliente);
+        $(doc).css("background-color", "blue");
+    } 
 </script>

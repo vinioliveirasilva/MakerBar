@@ -11,15 +11,89 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = "0,1")]
     public class PedidosController : Controller
     {
         private makerbarEntities db = new makerbarEntities();
 
-        // GET: Pedidos
-        public async Task<ActionResult> Index()
+
+        public async Task<ActionResult> Index(string id)
         {
-            var pedido = db.Pedido.Include(p => p.Cliente);
-            return View(await pedido.ToListAsync());
+            if(id != null)
+            { 
+                Cliente cli = await db.Cliente.FindAsync(id);
+
+                return PartialView("_Index", cli.Pedido);
+            }
+
+            return PartialView("_Index", new List<Pedido>());
+        }
+
+        [HttpGet]
+        public ActionResult Get(int id)
+        {
+            Pedido pedido = db.Pedido.Find(id);
+            if (pedido == null)
+            {
+                return null;
+            }
+            //return new List<Cliente> { cliente };
+            return Json(pedido, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<bool> Create(Pedido pedido)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Pedido.Add(pedido);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public async Task<bool> Edit(Pedido pedido)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(pedido).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public async Task<bool> Deleta(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Pedido pedido = db.Pedido.Find(id);
+                    db.Pedido.Remove(pedido);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
         }
 
         // GET: Pedidos/Details/5
@@ -38,6 +112,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Pedidos/Create
+        /*
         public ActionResult Create()
         {
             ViewBag.IdCliente = new SelectList(db.Cliente, "Cpf", "Endereco");
@@ -47,21 +122,8 @@ namespace WebApplication1.Controllers
         // POST: Pedidos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Identificador,IdCliente")] Pedido pedido)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Pedido.Add(pedido);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.IdCliente = new SelectList(db.Cliente, "Cpf", "Endereco", pedido.IdCliente);
-            return View(pedido);
-        }
-
+    
         // GET: Pedidos/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -78,23 +140,7 @@ namespace WebApplication1.Controllers
             return View(pedido);
         }
 
-        // POST: Pedidos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Identificador,IdCliente")] Pedido pedido)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(pedido).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdCliente = new SelectList(db.Cliente, "Cpf", "Endereco", pedido.IdCliente);
-            return View(pedido);
-        }
-
+       
         // GET: Pedidos/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
@@ -120,7 +166,7 @@ namespace WebApplication1.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

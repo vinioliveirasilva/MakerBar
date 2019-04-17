@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Suprimento
+﻿@model WebApplication1.Models.Login
 
 @{
     ViewBag.Title = "Details";
@@ -6,9 +6,18 @@
 
 <h3>Detalhes</h3>
 
+
 <div>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
@@ -18,19 +27,19 @@
         </dd>
 
         <dt>
-            Peso Inicial
+            @Html.DisplayNameFor(model => model.Senha)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PesoInicial)
+            @Html.DisplayFor(model => model.Senha)
         </dd>
 
         <dt>
-            Peso Atual
+            @Html.DisplayNameFor(model => model.Ativo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PesoAtual)
+            @Html.DisplayFor(model => model.Ativo)
         </dd>
 
         <dt>
@@ -41,28 +50,12 @@
             @Html.DisplayFor(model => model.Tipo)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
     </dl>
 </div>
 <p>
     <div>
         <button class="btn waves-effect waves-light" style="background-color:lightseagreen; margin-top:10px;">
-            @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @style = "color:white" })
+            @Html.ActionLink("Editar", "Edit", new { id = Model.Cpf }, new { @style = "color:white" })
         </button>
     </div>
     <div>

@@ -11,78 +11,99 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = "0,1")]
     public class FabricacoesController : Controller
     {
         private makerbarEntities db = new makerbarEntities();
 
         // GET: Fabricacoes
-        public async Task<ActionResult> Index()
+       /* public async Task<ActionResult> Index()
         {
             var fabricacao = db.Fabricacao.Include(f => f.Maquina).Include(f => f.Pedido).Include(f => f.Suprimento);
             return View(await fabricacao.ToListAsync());
         }
+        */
 
-        // GET: Fabricacoes/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Index(int id)
         {
-            if (id == null)
+            if (id != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Pedido pedido = await db.Pedido.FindAsync(id);
+
+                return PartialView("_Index", pedido.Fabricacao);
             }
-            Fabricacao fabricacao = await db.Fabricacao.FindAsync(id);
-            if (fabricacao == null)
-            {
-                return HttpNotFound();
-            }
-            return View(fabricacao);
+
+            return PartialView("_Index", new List<Fabricacao>());
         }
 
-        // GET: Fabricacoes/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Get(int id)
         {
-            ViewBag.IdMaquina = new SelectList(db.Maquina, "Id", "Nome");
-            ViewBag.IdPedido = new SelectList(db.Pedido, "Id", "Identificador");
-            ViewBag.IdSuprimento = new SelectList(db.Suprimento, "Id", "Nome");
-            return View();
+            Fabricacao fab = db.Fabricacao.Find(id);
+            if (fab == null)
+            {
+                return null;
+            }
+            //return new List<Cliente> { cliente };
+            return Json(fab, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Fabricacoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,IdMaquina,IdPedido,IdSuprimento")] Fabricacao fabricacao)
+        public async Task<bool> Create(Item item)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Fabricacao.Add(fabricacao);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Item.Add(item);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
             }
-
-            ViewBag.IdMaquina = new SelectList(db.Maquina, "Id", "Nome", fabricacao.IdMaquina);
-            ViewBag.IdPedido = new SelectList(db.Pedido, "Id", "Identificador", fabricacao.IdPedido);
-            ViewBag.IdSuprimento = new SelectList(db.Suprimento, "Id", "Nome", fabricacao.IdSuprimento);
-            return View(fabricacao);
+            catch (Exception ex)
+            {
+            }
+            return false;
         }
 
-        // GET: Fabricacoes/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        [HttpPost]
+        public async Task<bool> Edit(Item item)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (ModelState.IsValid)
+                {
+                    db.Entry(item).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return true;
+                }
             }
-            Fabricacao fabricacao = await db.Fabricacao.FindAsync(id);
-            if (fabricacao == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
             }
-            ViewBag.IdMaquina = new SelectList(db.Maquina, "Id", "Nome", fabricacao.IdMaquina);
-            ViewBag.IdPedido = new SelectList(db.Pedido, "Id", "Identificador", fabricacao.IdPedido);
-            ViewBag.IdSuprimento = new SelectList(db.Suprimento, "Id", "Nome", fabricacao.IdSuprimento);
-            return View(fabricacao);
+            return false;
         }
+
+        [HttpPost]
+        public async Task<bool> Deleta(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Item item = db.Item.Find(id);
+                    db.Item.Remove(item);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
+
+        /*
 
         // POST: Fabricacoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -128,7 +149,7 @@ namespace WebApplication1.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
